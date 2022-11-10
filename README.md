@@ -1,37 +1,134 @@
 # Invera ToDo-List Challenge (Python/Django Jr-SSr)
 
-El propósito de esta prueba es conocer tu capacidad para crear una pequeña aplicación funcional en un límite de tiempo. A continuación, encontrarás las funciones, los requisitos y los puntos clave que debés tener en cuenta durante el desarrollo.
+&nbsp;  
+## Getting started
+### Requirements
+```
+Django==4.1.3
+djangorestframework==3.14.0
+```
 
-## Qué queremos que hagas:
+### 1. Cloning the project
+```
+git clone https://github.com/ostizjuan/todo-challenge.git
+```
+After that, follow these steps depending on whether you use Docker or not.
+&nbsp;  
+&nbsp;  
 
-- El Challenge consiste en crear una aplicación web sencilla que permita a los usuarios crear y mantener una lista de tareas.
-- La entrega del resultado será en un nuevo fork de este repo y deberás hacer una pequeña demo del funcionamiento y desarrollo del proyecto ante un super comité de las más grandes mentes maestras de Invera, o a un par de devs, lo que sea más fácil de conseguir.
-- Podes contactarnos en caso que tengas alguna consulta.
+### 2.A. Docker
+- If you are using ***Docker Compose***, run (in the root folder of the project):
+```
+docker compose up
+```
+&nbsp;  
 
-## Objetivos:
+- Otherwise, you will have to build it manually. To build the image:
+```
+docker build -t inv_todo:1 .
+```
+Next, we run the container:
+```  
+docker run -p 8000:8000 inv_todo:1
+```
+&nbsp;  
+&nbsp;  
 
-El usuario de la aplicación tiene que ser capaz de:
+### 2.A.1. Tests with Docker
+- To run tests with ***Docker Compose***:
+```
+docker compose run api python manage.py test
+```
 
-- Autenticarse
-- Crear una tarea
-- Eliminar una tarea
-- Marcar tareas como completadas
-- Poder ver una lista de todas las tareas existentes
-- Filtrar/buscar tareas por fecha de creación y/o por el contenido de la misma
+- Without ***Docker Compose***:
+```
+docker run -p 8000:8000 inv_todo:1 python manage.py test
+```
+&nbsp;  
+&nbsp;  
 
-## Qué evaluamos:
+### 2.B. Manual installation
+1. ****Optional***: i recommend you create a virtual environment:
+```
+python -m venv ./venv
+```
+&nbsp;  
 
-- Desarrollo utilizando Python, Django. No es necesario crear un Front-End, pero sí es necesario tener una API que permita cumplir con los objetivos de arriba.
-- Uso de librerías y paquetes estandares que reduzcan la cantidad de código propio añadido.
-- Calidad y arquitectura de código. Facilidad de lectura y mantenimiento del código. Estándares seguidos.
-- [Bonus] Manejo de logs.
-- [Bonus] Creación de tests (unitarias y de integración)
-- [Bonus] Unificar la solución propuesta en una imagen de Docker por repositorio para poder ser ejecutada en cualquier ambiente (si aplica para full stack).
+2. *To activate the venv:
+  - On Windows:
+  ```
+  venv/Scripts/activate
+  ```
+  - On Linux:
+  ```
+  source bin/activate
+  ```
+&nbsp;  
 
-## Requerimientos de entrega:
+3. Install the requirements:
+```
+pip3 install -r requirements.txt
+```
+&nbsp;  
 
-- Hacer un fork del proyecto y pushearlo en github. Puede ser privado.
-- La solución debe correr correctamente.
-- El Readme debe contener todas las instrucciones para poder levantar la aplicación, en caso de ser necesario, y explicar cómo se usa.
-- Disponibilidad para realizar una pequeña demo del proyecto al finalizar el challenge.
-- Tiempo para la entrega: Aproximadamente 7 días.
+4. Run the server:
+```
+python manage.py runserver
+```
+&nbsp;  
+&nbsp;  
+
+### 2.B.1. Test
+- To manually run the tests:
+```
+python manage.py test
+```
+&nbsp;  
+&nbsp;  
+
+## Endpoints
+
+| HTTP Methods  | URL           | Optional params  |
+| ------------- |:-------------- |:----------------- |
+| `GET`           | `http://127.0.0.1:8000/api/tasks/` | `pk/id` or `?content='something'` and/or `created_at='some date'` |
+| `POST`          | `http://127.0.0.1:8000/api/tasks/?content=”This%20is%20a%20new%20task”` |    |
+| `PATCH`         | `http://127.0.0.1:8000/api/tasks/<id>/` |    |
+| `DELETE`        | `http://127.0.0.1:8000/api/tasks/<id>/`  |    |
+
+&nbsp;  
+&nbsp;  
+
+## Usage
+The database comes with a superuser who will be in charge of testing. The API works with Basic Auth.
+&nbsp;  
+| Username  | Password  |
+| :-------- |:----------|
+| `admin`   | `1234`    |
+
+&nbsp;  
+
+### 1. Using Postman
+Go to the `Authorization` tab, select `Basic Auth` and enter the user information.
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0bd175e4-29a2-4991-b394-29775c4cee42/Untitled.png)
+Now you can make any request you wish.
+
+&nbsp;  
+
+### 2. Using the Python requests library
+Example code:
+```
+import requests
+
+url = "http://127.0.0.1:8000/api/tasks/"
+username = "admin"
+password = "1234"
+response = requests.get(url, auth=(username, password))
+print(response.status_code)
+print(response.json())
+```
+&nbsp;  
+
+### 3. Using a browser
+
+1. First, you need to log in to [`http://127.0.0.1:8000/admin/login/`](http://127.0.0.1:8000/admin/login/)
+2. Now, you can access to `http://127.0.0.1:8000/api/tasks/`.
