@@ -91,7 +91,7 @@ python manage.py test
 | HTTP Methods  | URL           | Optional params  |
 | ------------- |:-------------- |:----------------- |
 | `GET`           | `http://127.0.0.1:8000/api/tasks/` | `pk/id` or `?content='something'` and/or `created_at='some date'` |
-| `POST`          | `http://127.0.0.1:8000/api/tasks/?content=”This%20is%20a%20new%20task”` |    |
+| `POST`          | `http://127.0.0.1:8000/api/tasks/` | Send the `content` in the body    |
 | `PATCH`         | `http://127.0.0.1:8000/api/tasks/<id>/` |    |
 | `DELETE`        | `http://127.0.0.1:8000/api/tasks/<id>/`  |    |
 
