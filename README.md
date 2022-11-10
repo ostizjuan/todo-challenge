@@ -109,7 +109,10 @@ The database comes with a superuser who will be in charge of testing. The API wo
 
 ### 1. Using Postman
 Go to the `Authorization` tab, select `Basic Auth` and enter the user information.
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0bd175e4-29a2-4991-b394-29775c4cee42/Untitled.png)
+&nbsp;  
+
+<img src="https://user-images.githubusercontent.com/81332665/201179985-d9641ba1-14b0-4039-bcc7-6a6d391ad29f.png" width=75% alt="postman" />
+&nbsp;  
 Now you can make any request you wish.
 
 &nbsp;  
